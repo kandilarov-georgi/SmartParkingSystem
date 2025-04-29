@@ -1,9 +1,8 @@
 from pymongo import MongoClient
 from datetime import datetime
 
-# Свързване към MongoDB
 client = MongoClient("mongodb://localhost:27017/")
-db = client['Smart_Parking_System']  # Уверете се, че името на базата данни съвпада
+db = client['Smart_Parking_System']  
 
 def show_menu():
     print("\n-- Smart Parking System --")
@@ -13,7 +12,7 @@ def show_menu():
 
 def list_transactions():
     transactions = db.transactions.find()
-    if db.transactions.count_documents({}) == 0:  # Ако няма транзакции, покажи съобщение
+    if db.transactions.count_documents({}) == 0: 
         print("Няма налични транзакции.")
     else:
         for t in transactions:
@@ -34,12 +33,12 @@ def add_transaction():
         "timestamp": datetime.now()
     }
     try:
-        db.transactions.insert_one(transaction)  # Вмъкване на транзакцията в базата данни
+        db.transactions.insert_one(transaction)  
         print("Транзакцията е добавена успешно!")
     except Exception as e:
         print(f"Грешка при добавяне на транзакцията: {e}")
 
-# Основна програма
+
 while True:
     show_menu()
     choice = input("Избор: ")
